@@ -1,0 +1,10 @@
+<mat-drawer-container class="side">
+    <mat-drawer mode="side" opened>Drawer content</mat-drawer>
+    <mat-drawer-content>Main content</mat-drawer-content>
+</mat-drawer-container>
+<div *ngIf="Contacts.length > 0">
+    <app-contact *ngFor="let con of Contacts" ></app-contact>
+</div>
+<div *ngIf="Contacts.length == 0">
+    No Contacts
+</div>
