@@ -1,10 +1,17 @@
-<mat-drawer-container class="side">
-    <mat-drawer mode="side" opened>Drawer content</mat-drawer>
-    <mat-drawer-content>Main content</mat-drawer-content>
-</mat-drawer-container>
-<div *ngIf="Contacts.length > 0">
-    <app-contact *ngFor="let con of Contacts" ></app-contact>
-</div>
-<div *ngIf="Contacts.length == 0">
-    No Contacts
+<nav>
+    <a routerLink="/contact">
+        <button class="dash" mat-raised-button>Add Contact</button>
+    </a>
+    <button class="dash" mat-raised-button (click)="seed()">Seed</button>
+    <button *ngIf="Contacts.length > 0" class="dash" mat-raised-button (click)="sortData()"><mat-icon>{{icon}}</mat-icon>Sort</button>
+</nav>
+<div>
+    <div *ngIf="Contacts.length > 0"  class="wrapper" matSort>
+        <a *ngFor="let con of Contacts" routerLink="/contact/{{con.Id}}">
+            <app-contact [contact]="con"></app-contact>
+        </a>
+    </div>
+    <div *ngIf="Contacts.length == 0"  class="wrapper">
+        No Contacts!!
+    </div>
 </div>

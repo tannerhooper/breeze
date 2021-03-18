@@ -1,0 +1,10 @@
+.mat-card {
+    margin: 2%;
+    min-width: 290px;
+    max-width: 300px;
+}
+
+.mat-card-title-text {
+    display: flex;
+    flex-wrap: wrap;
+}

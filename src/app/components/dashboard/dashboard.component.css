@@ -1,6 +1,22 @@
-.side {
-    width: 400px;
-    height: 200px;
-    margin: 10px;
-    border: 1px solid #555;
-  }
+.title {
+    font-size: x-large;
+}
+
+.dash {
+    font-size: large;
+    margin-right: .5%;
+}
+
+.wrapper {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div a {
+    padding-right: .5%;
+}
+
+.sort {
+    padding-left: .5%;
+}

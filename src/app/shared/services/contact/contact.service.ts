@@ -6,30 +6,26 @@ import { Contact } from '../../models/contact';
 })
 export class ContactService {
   constructor() { }
-  Contacts: Contact[] = [];
+  private Contacts: Contact[] = [];
 
-  /**
-   * getContacts
-   */
   public getContacts(): Contact[] {
     return this.Contacts;
   }
 
-  /**
-   * addContact
-   */
+  public getContact(id: number): Contact {
+    return this.Contacts.filter(x => x.Id == id)[0];
+  }
+
   public addContact(con: Contact): Contact | null {
     let indx: number = this.Contacts.indexOf(con);
     if (indx < 0) { //Contact doesn't exist yet
+      con.Id = this.Contacts.length+1;
       this.Contacts.push(con);
       return con;
     }
     return null;
   }
 
-  /**
-   * updateContact
-   */
   public updateContact(con: Contact): Contact | null {
     let indx: number = this.Contacts.indexOf(con);
     if (indx >= 0) { //Contact exists
@@ -39,9 +35,6 @@ export class ContactService {
     return null;
   }
 
-  /**
-   * deleteContact
-   */
   public deleteContact(con: Contact): boolean {
     let indx: number = this.Contacts.indexOf(con);
     if (indx >= 0) { //Contact exists to delete
@@ -51,5 +44,16 @@ export class ContactService {
       return true;
     }
     return false;
+  }
+
+  public seedContacts() {
+    this.addContact(new Contact({Name: "Darth Vader", Address: `${this.getRand()} S ${this.getRand()} E`, Email: "billy@craig.com", Phone: "9924453466"}));
+    this.addContact(new Contact({Name: "Zac Yolo", Address: `${this.getRand()} W ${this.getRand()} S`, Email: "zac@yolo.com", Phone: "3872993740"}));
+    this.addContact(new Contact({Name: "Bob Rando", Address: `${this.getRand()} S ${this.getRand()} E`, Email: "bob@rando.com", Phone: "1231231234"}));
+    this.addContact(new Contact({Name: "Jill Bubcheck", Address: `${this.getRand()} N ${this.getRand()} E`, Email: "jill@bubcheck.com", Phone: "112233445"}));
+  }
+
+  private getRand(){
+    return Math.floor(Math.random() * 10000);
   }
 }
