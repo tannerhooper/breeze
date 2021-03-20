@@ -47,13 +47,18 @@ export class ContactService {
   }
 
   public seedContacts() {
-    this.addContact(new Contact({Name: "Darth Vader", Address: `${this.getRand()} S ${this.getRand()} E`, Email: "billy@craig.com", Phone: "9924453466"}));
-    this.addContact(new Contact({Name: "Zac Yolo", Address: `${this.getRand()} W ${this.getRand()} S`, Email: "zac@yolo.com", Phone: "3872993740"}));
-    this.addContact(new Contact({Name: "Bob Rando", Address: `${this.getRand()} S ${this.getRand()} E`, Email: "bob@rando.com", Phone: "1231231234"}));
-    this.addContact(new Contact({Name: "Jill Bubcheck", Address: `${this.getRand()} N ${this.getRand()} E`, Email: "jill@bubcheck.com", Phone: "112233445"}));
+    this.addContact(new Contact({Name: "Darth Vader", Address: this.getRandAdr(), Email: "dark@father.com", Phone: `${this.getRandRange(1000000000,10000000000)}`}));
+    this.addContact(new Contact({Name: "Zac Yolo", Address: this.getRandAdr(), Email: "zac@yolo.com", Phone: `${this.getRandRange(1000000000,10000000000)}`}));
+    this.addContact(new Contact({Name: "Bob Rando", Address: this.getRandAdr(), Email: "bob@rando.com", Phone: `${this.getRandRange(1000000000,10000000000)}`}));
+    this.addContact(new Contact({Name: "Jill Bubcheck", Address: this.getRandAdr(), Email: "jill@bubcheck.com", Phone: `${this.getRandRange(1000000000,10000000000)}`}));
   }
 
-  private getRand(){
-    return Math.floor(Math.random() * 10000);
+  private streets = ['N','S','E','W'];
+  private getRandAdr(){
+    let first = this.streets[this.getRandRange(0,this.streets.length)];
+    let edit = this.streets.filter(x => x !== first);
+    let sec = edit[this.getRandRange(0,edit.length)];
+    return `${this.getRandRange(0,10000)} ${first} ${this.getRandRange(0,10000)} ${sec}`;
   }
+  private getRandRange(min:number, max:number){ return Math.floor(Math.random() * (max - min) + min); }
 }

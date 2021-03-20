@@ -68,9 +68,12 @@ export class ContactComponent implements OnInit {
   toggleColor(){ this.form.enabled ? this.editColor = 'warn' : this.editColor = 'primary'; }
 
   delete(){
-    let didDel = this.contactService.deleteContact(this.contact);
-    let message = didDel ? "Deleted Successfully": "FAILED to Delete";
-    this.routeToDash().then((navi:boolean) => { if (navi) this.triggerSnak(message); });
+    let conf = confirm(`Are you sure you want to delete ${this.contact.Name}?`)
+    if (!!conf){
+      let didDel = this.contactService.deleteContact(this.contact);
+      let message = didDel ? "Deleted Successfully": "FAILED to Delete";
+      this.routeToDash().then((navi:boolean) => { if (navi) this.triggerSnak(message); });
+    }
   }
 
   triggerSnak(msg:string){ this.snakeBar.open(msg,'',{duration:3000}); }
@@ -81,11 +84,15 @@ export class ContactComponent implements OnInit {
     return this.router.navigate(['dashboard'],{ relativeTo: this.route.parent });
   }
 
-  validateForm(){
-    let valid = this.contact.Name !== undefined &&
-                this.contact.Address !== undefined &&
-                this.contact.Email !== undefined &&
-                this.contact.Phone !== undefined &&
+  isNullOrWhiteSpace(inp:string): boolean {
+    return (inp === undefined || inp === null || inp === '');
+  }
+
+  validateForm(): boolean{
+    let valid = this.isNullOrWhiteSpace(this.contact.Name || '') &&
+                this.isNullOrWhiteSpace(this.contact.Address || '') &&
+                this.isNullOrWhiteSpace(this.contact.Email || '') &&
+                this.isNullOrWhiteSpace(this.contact.Phone || '') &&
                 this.form.dirty;
     return !valid;
   }
